@@ -1,0 +1,319 @@
+---
+title: "Whitepaper"
+description: "The BETTER whitepaper: vision, product, traction, business model, token economics, and roadmap."
+---
+
+# BETTER Whitepaper
+
+<Note>
+  This document is written for venture capitalists and early-stage investors evaluating BETTER. It is intended to be read quickly at first pass, then revisited during diligence.
+</Note>
+
+## Reading guide
+
+- If you have five minutes: read **Executive summary**, **Traction**, **Business model**, and **Token economics and access gating**.
+- If you have fifteen minutes: also read **Product**, **Competitive moat**, and **Roadmap**.
+- If you are doing diligence: read **Technical architecture (conceptual)** and **Risks and disclaimers**.
+
+All monetary amounts are denominated in United States dollars unless stated otherwise.
+
+---
+
+## Executive summary
+
+BETTER is building execution infrastructure for prediction markets that allows retail traders to access professional-grade speed and tooling.
+
+In prediction markets, edge decays quickly: when news breaks, prices move in milliseconds. People trading manually often arrive after the move; algorithmic systems arrive first.
+
+BETTER’s approach is to make speed available to retail traders through:
+
+1. **A Terminal** that surfaces elite-wallet trade setups, provides context, and enables copy trading.
+2. **Vaults** that pool USD Coin on Base and execute strategies on behalf of depositors.
+3. **A high-frequency trading execution stack** designed for in-region and co-located routing at Terminal launch.
+4. **Bounded, auditable automated decision-making** via the Bounded Reasoning for Autonomous Inference and Decisions protocol.
+
+BETTER is raising 500,000 via a simple agreement for future equity to bring the Terminal, co-located execution, and initial Vault releases to production.
+
+---
+
+## The problem
+
+Prediction markets settle on objective outcomes, but execution is not fair.
+
+When the first credible signals emerge (on-chain wallet activity, order flow shifts, and liquidity dislocations), the market reprices rapidly. Retail traders are structurally disadvantaged:
+
+- They see the information later.
+- They react slower.
+- They face worse prices and worse fills.
+
+The result is that prediction markets can feel like a casino: sophisticated systems harvest speed-based edge while manual participants become the liquidity.
+
+---
+
+## The BETTER solution
+
+BETTER exists to democratise speed in prediction markets.
+
+Instead of competing against high-speed systems, retail users can opt into a shared execution layer:
+
+### The Terminal
+
+The Terminal is the active interface:
+
+- Elite-wallet signal feed with context
+- Real-time execution stream
+- Copy trading within the Terminal
+
+Terminal access is gated by holding `$BETTER`.
+
+### Vaults
+
+Vaults are the passive interface:
+
+- Users deposit USD Coin on Base
+- Automated strategies execute on behalf of depositors
+- A performance fee is charged on profits only, on withdrawal
+
+Vault access is gated by staking `$BETTER` (the same quantity required to view the Terminal).
+
+### Execution infrastructure
+
+BETTER’s execution stack is built for low latency, determinism, and reliability.
+
+Public tick-to-trade claim:
+
+- Approximately 0.6 milliseconds, measured from mempool read to transaction hash on Base, then to order finality on Polymarket (Polygon).
+
+For Terminal launch, production routing is designed to be co-located in the same data centre facility as the relevant prediction market order books.
+
+---
+
+## Traction
+
+BETTER has already demonstrated sustained signal collection and real-time processing at scale.
+
+Traction highlights:
+
+- More than ten million signals collected in approximately five months.
+- 10,000–40,000 elite-wallet trade setups per day.
+- Approximately 0.6 milliseconds tick-to-trade (definition above).
+
+---
+
+## Market context
+
+Prediction markets are converging with multiple large markets:
+
+- Gambling and sports betting
+- Financial derivatives
+- News and information distribution
+
+As prediction markets mature, execution speed becomes a core differentiator, similar to equities and foreign exchange markets.
+
+---
+
+## Product detail
+
+### Signals and decision-making
+
+BETTER ingests market data and on-chain activity, then produces trade setups with confidence.
+
+The decision engine uses bounded reasoning: signals are only promoted to execution when constraints are satisfied (liquidity, risk correlation, and admissibility rules).
+
+### Copy trading
+
+The Terminal enables users to act on signals without building their own infrastructure.
+
+Copy trading is part of the initial Terminal release and is planned to go live within 48 hours of the token generation event (21 January 2026).
+
+### Receipt tokens
+
+BETTER plans a receipt token (`vBETTER`) that represents a share of vault performance. Receipt tokens aim to make vault exposure transferable and tradable.
+
+---
+
+## Business model
+
+BETTER is designed with multiple revenue lines:
+
+### Performance fee (Vaults)
+
+- Twenty per cent performance fee on profits only.
+- Charged on withdrawal.
+- No fee if USD Coin withdrawn is below entry value (based on average entry per wallet).
+
+### Lite Mode fee (Terminal)
+
+Lite Mode is an optional execution path enabled at log-in.
+
+- When enabled, the Terminal holding requirement halves.
+- Vault access requirements remain unchanged across fully diluted valuation tiers.
+- A fee of two per cent of notional volume (in USD Coin terms) is charged on volume traded via the Terminal.
+
+### Business-to-business product
+
+BETTER plans to sell its Rust data ingestion stack to quantitative funds and bucket shops seeking prediction market exposure.
+
+### Model training and credits
+
+After the token generation event, BETTER plans to train an in-house open-source model tuned on BETTER signals and sell application programming interface credits.
+
+---
+
+## Token economics and access gating
+
+### Supply and allocations
+
+- Total supply: 1,000,000,000 `$BETTER` on Base.
+
+Allocation:
+
+| Allocation | Per cent | Amount | Notes |
+| --- | ---: | ---: | --- |
+| Public sale (launchpad) | 25% | 250,000,000 | Unlocked at the token generation event |
+| Liquidity (Base and USD Coin) | 15% | 150,000,000 | Locked permanently (liquidity provider tokens locked) |
+| Team | 20% | 200,000,000 | Zero per cent at the token generation event; six-month cliff then nine-month linear release |
+| Treasury | 25% | 250,000,000 | Unlocked at the token generation event |
+| OpenServ SERV token drop | 5% | 50,000,000 | Unlocked (claimed by SERV token stakers via tasks) |
+| Programmatic funding | 10% | 100,000,000 | Released across fully diluted valuation bands |
+
+Initial circulating supply is defined as the public sale allocation plus the liquidity allocation: approximately 400,000,000 tokens (40 per cent).
+
+### Hold and stake semantics
+
+- Hold `$BETTER` to view the Terminal.
+- Stake the same quantity to deposit into Vaults.
+
+Staked `$BETTER` remains locked until a user withdraws all funds from the vault.
+
+### Fully diluted valuation gate phases
+
+| Phase | Fully diluted valuation | Terminal (hold) | Vaults (stake) |
+| ---: | --- | ---: | ---: |
+| One | Below $10 million | 100,000 | 100,000 |
+| Two | $10 million–$20 million | 75,000 | 75,000 |
+| Three | $20 million–$40 million | 50,000 | 50,000 |
+| Four | $100 million or more | 10,000 | 10,000 |
+
+Examples:
+
+- At $0.005 ($5 million market capitalisation): approximately $500 (Phase one)
+- At $0.01 ($10 million market capitalisation): approximately $1,000 (Phase one)
+- At $0.02 ($20 million market capitalisation): approximately $1,500 (Phase two)
+- At $0.04 ($40 million market capitalisation): approximately $2,000 (Phase three)
+- At $0.10 ($100 million market capitalisation): approximately $1,000 (Phase four)
+
+### Lite Mode thresholds
+
+| Phase | Terminal (hold) | Terminal (hold) with Lite Mode |
+| ---: | ---: | ---: |
+| One | 100,000 | 50,000 |
+| Two | 75,000 | 37,500 |
+| Three | 50,000 | 25,000 |
+| Four | 10,000 | 5,000 |
+
+---
+
+## Competitive moat
+
+BETTER’s moat is a combination of infrastructure, data, and operational focus.
+
+### Infrastructure-first execution
+
+- Rust-first high-frequency trading execution
+- In-region and co-located routing
+- Deterministic, constraint-driven execution decisions
+
+### Bounded reasoning
+
+Bounded reasoning aims to reduce failure modes that are common in unconstrained automated systems:
+
+- It enforces admissibility rules.
+- It produces auditable decision records.
+- It limits uncontrolled strategy drift.
+
+### Distribution and composability
+
+- Terminal-first distribution for active traders
+- Vaults for passive depositors
+- Receipt token design for composability
+
+### Partnerships
+
+- OpenServ for bounded agent infrastructure
+- DomeAPI for execution integration
+
+---
+
+## Roadmap
+
+### 21 January 2026
+
+- Token generation event
+- Terminal live within 48 hours
+
+### January 2026
+
+- Vaults live (staged rollout)
+
+### First quarter of 2026
+
+- Tokenised vault shares (`vBETTER`)
+- Kalshi and Opinion integrations complete (March 2026)
+- Business-to-business Rust data ingestion product
+
+### Second quarter of 2026
+
+- In-house open-source model training and application programming interface credits
+- Arbitrage flywheel
+
+### Fourth quarter of 2026
+
+- `$TRUTH-PERP` on Hyperliquid
+
+---
+
+## Team
+
+**Aryaman Chhaya** — Founder and quantitative developer
+
+- Quantitative researcher (buy-side hedge fund): built Bitcoin futures market-making in Rust, approximately $75,000 per week profit and loss on approximately $500,000 inventory.
+- Worked with senior traders on $1.2 million–$9 million Bitcoin calendar spread books.
+- Building sub-millisecond high-frequency trading systems on Solana (Rust and hardware-oriented low-latency design).
+
+---
+
+## Fundraising
+
+BETTER is raising 500,000 via a simple agreement for future equity.
+
+Use of funds:
+
+| Use | Per cent |
+| --- | ---: |
+| Infrastructure, engineering, and compute | 50 |
+| Audits | 15 |
+| Legal and operations | 10 |
+| Growth and community | 15 |
+| Liquidity | 5 |
+| Marketing | 5 |
+
+Founders take no salary from this raise.
+
+---
+
+## Risks and disclaimers
+
+This document is not investment, legal, or tax advice.
+
+Key risks include:
+
+- Smart contract risk
+- Market risk
+- Liquidity risk
+- Execution and latency risk
+- Oracle and settlement risk
+- Cross-chain and integration risk
+- Regulatory risk
+
+Protocol mechanics, parameters, and timelines may change.

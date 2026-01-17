@@ -1,0 +1,49 @@
+---
+title: "vBETTER"
+description: "Receipt tokens for vault performance."
+---
+
+## What vBETTER is
+
+`vBETTER` is a **receipt token**—a standard ERC-20 that represents a share of a BETTER vault's performance.
+
+## Why receipt tokens exist
+
+Traditional vault deposits are "stuck." They're hard to transfer, hard to exit quickly, and incompatible with broader DeFi.
+
+## What vBETTER enables
+
+Receipt tokens make strategy exposure:
+
+- **Transferable:** Move your vault position to another wallet
+- **Tradable:** 24/7 liquidity on secondary markets
+- **Composable:** Use as collateral for borrowing, add to LPs, integrate with DeFi primitives
+
+## How it works
+
+In the Mirror Vault design, the Enzyme vault framework acts as the on-chain accountant:
+
+1. **Observe:** Track the vault's assets and performance
+2. **Mint:** Issue `vBETTER` tokens based on verified accounting
+3. **Redeem:** Burn tokens to withdraw proportional share
+
+## Mirror vault architecture
+
+- **Base Vault (Feeder):** Holds real capital, executes trades
+- **Polygon Vault (Master):** Observes performance, mints/burns receipt tokens
+
+This separates where capital lives from where liquidity is best.
+
+## Arbitrage flywheel
+
+`vBETTER` creates a liquid market against vault shares. Pricing gaps between the Base feeder vault and `vBETTER` are captured through mint and burn mechanics.
+
+When `vBETTER` trades at a premium, the protocol can mint and sell `vBETTER` to capture the spread, then use proceeds to buy and burn `$BETTER`.
+
+## Availability
+
+Receipt token support rolls out per vault. The app shows current availability.
+
+<Note>
+  Receipt token mechanics (mint/redemption, pricing, safeguards) are protocol-specific and evolve with protocol updates.
+</Note>

@@ -1,0 +1,83 @@
+---
+title: "Tokenomics"
+description: "Supply, allocations, and vesting."
+---
+
+## Supply
+
+- **Total supply:** 1,000,000,000
+- **Ticker:** `$BETTER`
+- **Network:** Base
+
+## Allocation
+
+| Allocation                      | Per cent |      Amount | Vesting / lock-up                                                                       |
+| ------------------------------ | ------: | ----------: | --------------------------------------------------------------------------------------- |
+| Public sale (launchpad)        |     25% | 250,000,000 | Unlocked at the token generation event                                                  |
+| Liquidity (Base and USD Coin)  |     15% | 150,000,000 | Locked permanently (liquidity provider tokens locked)                                   |
+| Team                           |     20% | 200,000,000 | Zero per cent at the token generation event; six-month cliff then nine-month linear release |
+| Treasury                       |     25% | 250,000,000 | Unlocked at the token generation event                                                  |
+| OpenServ SERV token drop       |      5% |  50,000,000 | Unlocked (claimed by SERV token stakers via tasks)                                      |
+| Programmatic funding           |     10% | 100,000,000 | Released across fully diluted valuation bands                                           |
+
+## Circulating Supply
+
+Initial circulating supply: approximately **400,000,000 (40 per cent)**.
+
+For this document, “circulating” refers to the public sale allocation plus the liquidity allocation.
+
+## Access gate (hold and stake)
+
+The access gate keeps USD access stable as fully diluted valuation rises, rewards early holders, and preserves execution quality by limiting congestion.
+
+- Hold `$BETTER` to view the Terminal.
+- Stake the same quantity to deposit into Vaults.
+
+Staked `$BETTER` remains locked until you withdraw all funds from the vault.
+
+### Gate phases
+
+- **Phase one (below US$10 million fully diluted valuation):** 100,000 `$BETTER`
+  - At US$0.005 (US$5 million market capitalisation): approximately US$500
+  - At US$0.01 (US$10 million market capitalisation): approximately US$1,000
+- **Phase two (US$10 million–US$20 million fully diluted valuation):** 75,000 `$BETTER`
+  - At US$0.02 (US$20 million market capitalisation): approximately US$1,500
+- **Phase three (US$20 million–US$40 million fully diluted valuation):** 50,000 `$BETTER`
+  - At US$0.04 (US$40 million market capitalisation): approximately US$2,000
+- **Phase four (US$100 million or more fully diluted valuation):** 10,000 `$BETTER`
+  - At US$0.10 (US$100 million market capitalisation): approximately US$1,000
+
+### Lite Mode
+
+Lite Mode is an optional execution path enabled at log-in.
+
+- When enabled, the Terminal holding requirement halves.
+- Vault access requirements remain unchanged.
+- A fee of **two per cent of notional volume (in USD Coin terms)** is charged on volume traded via the Terminal.
+
+| Phase | Terminal (hold) | Terminal (hold) with Lite Mode | Vaults (stake) |
+| ----: | --------------: | -----------------------------: | -------------: |
+| 1     | 100,000         | 50,000                         | 100,000        |
+| 2     | 75,000          | 37,500                         | 75,000         |
+| 3     | 50,000          | 25,000                         | 50,000         |
+| 4     | 10,000          | 5,000                          | 10,000         |
+
+## Programmatic Funding
+
+Programmatic funding is operational and will be used to fund model credits as well as infrastructure and physical hardware.
+
+| Fully diluted valuation range | Sold      | Raise       | Cumulative  |
+| :--------------------------- | --------: | ----------: | ----------: |
+| US$1 million–US$5 million    | 2 per cent | US$60,000    | US$60,000    |
+| US$5 million–US$10 million   | 2 per cent | US$150,000   | US$210,000   |
+| US$10 million–US$20 million  | 2 per cent | US$300,000   | US$510,000   |
+| US$20 million–US$50 million  | 2 per cent | US$700,000   | US$1,210,000 |
+| US$50 million–US$100 million | 2 per cent | US$1,500,000 | US$2,710,000 |
+
+<Note>
+  This page reflects current tokenomics; launch mechanics finalize these values.
+</Note>
+
+## Update policy
+
+Tokenomics evolve with market conditions, regulatory constraints, or protocol needs. The app and on-chain data remain the source of truth.

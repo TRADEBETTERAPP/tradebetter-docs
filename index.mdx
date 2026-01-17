@@ -1,0 +1,59 @@
+---
+title: "Introduction"
+description: "BETTER is a liquidity abstraction layer for prediction markets—built to democratize speed. It lets retail users access institutional-grade execution by pooling capital into vaults and routing trades through a low-latency stack.
+"
+---
+
+## Who it is for
+
+<Note>
+  BETTER is launching in stages. The Terminal (with live copy trading) goes live within 48 hours of the token generation event (21 January 2026).
+</Note>
+
+- **Vault depositors** who want passive exposure to prediction-market alpha
+- **Active traders** who want real-time signals and execution context in the Terminal
+- **Builders/integrators** who need telemetry, strategy feeds, or on-chain indexing
+
+## Core capabilities
+
+- **Rust-based high-frequency trading execution** with in-region and co-located routing
+- **AI agent pipeline** (BRAID protocol) that processes on-chain signals at scale
+- **Vault-based access** on Base with optional receipt tokenization (`vBETTER`)
+- **Terminal** for real-time feeds, performance, and copy-trading
+
+## Architecture at a glance
+
+| Component            | What it does                                                          |
+| -------------------- | --------------------------------------------------------------------- |
+| **Vaults**           | Aggregate USD Coin deposits on Base and execute strategies on your behalf |
+| **Execution Engine** | Low-latency Rust stack co-located with prediction market order books  |
+| **AI Agents**        | Generate signals using the BRAID protocol and a Reasoning DAG         |
+| **Terminal**         | Surfaces live feeds, signal context, and copy-trading tools           |
+
+## Availability & access
+
+- **Network:** Base (deposits)
+- **Access:** Terminal + Vaults are gated by `$BETTER` holdings
+- **Source of truth:** The app UI and official announcements
+
+<Note>
+  See [Risks & disclaimers](/legal/risks) before depositing or trading.
+</Note>
+
+<CardGroup cols={2}>
+  <Card title="Whitepaper" icon="file-lines" href="/whitepaper">
+    The full investor-facing document.
+  </Card>
+  <Card title="Get Started" icon="rocket" href="/quickstart">
+    Connect, fund, and deposit into vaults.
+  </Card>
+  <Card title="How It Works" icon="diagram-project" href="/product/how-it-works">
+    Vaults, execution engine, and cross-chain architecture.
+  </Card>
+  <Card title="Tokenomics" icon="coins" href="/token/tokenomics">
+    Supply, allocations, vesting, and distribution.
+  </Card>
+  <Card title="Roadmap" icon="map" href="/roadmap">
+    From Polymarket dominance to cross-market arbitrage.
+  </Card>
+</CardGroup>

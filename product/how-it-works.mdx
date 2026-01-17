@@ -1,0 +1,95 @@
+---
+title: "How It Works"
+description: "From mempool to signal to execution—the complete BETTER pipeline."
+---
+
+## System flow
+
+BETTER combines data ingestion, signal processing, and low-latency execution into a single pipeline.
+
+<Note>
+  BETTER is launching in stages. This page describes the intended production flow; availability depends on staged releases.
+</Note>
+
+The system is designed to monitor blockchain mempools and prediction market order books in real time:
+
+- **On-chain transactions:** Wallet movements, contract interactions, insider activity
+- **Order book data:** Bids, asks, liquidity depth across Polymarket's CLOB
+- **External feeds:** News APIs, social sentiment, event data
+
+For Terminal launch, production routing is co-located in the same data centre facility as the relevant order books.
+
+### 2. Signal processing (BRAID Protocol)
+
+Raw data is processed through the OpenServ AI agents running the BRAID protocol. The system builds a **Reasoning DAG** (Directed Acyclic Graph) that:
+
+- Assigns **Insider Scores** to wallets based on historical accuracy
+- Calculates **liquidity depth** to estimate slippage
+- Maps **risk correlations** across existing positions
+- Generates actionable signals with confidence scores
+
+Signals are processed continuously to generate trade decisions.
+
+### 3. Terminal display
+
+Processed signals flow to the Terminal in real time. Users with access can see:
+
+- Live signal feed with context (wallet scores, liquidity, correlation)
+- Which signals the AI agents are acting on
+- Copy-trading opportunities for manual execution
+
+### 4. Vault execution
+
+For vault depositors, the execution engine automatically acts on qualified signals:
+
+- Signals pass through logic gates (liquidity check, risk check)
+- Qualified trades execute via the Rust-based high-frequency trading engine
+- Positions are managed 24/7 without human intervention
+
+---
+
+## User flow
+
+1. **Deposit (Base):** Users deposit USD Coin into a BETTER vault on Base.
+2. **Execute (Prediction Markets):** The pipeline processes signals and executes trades on behalf of vault depositors.
+3. **Account (Optional):** A mirrored structure can issue receipt tokens representing vault performance.
+
+## Execution engine
+
+The execution system is built in **Rust** for deterministic performance and low-latency execution.
+
+- **Latency (public claim):** approximately 0.6 milliseconds tick-to-trade, measured from mempool read to transaction hash on Base, then to order finality on Polymarket (Polygon)
+- **Co-location:** production routing is co-located in-region for Terminal launch
+- **Uptime:** 24/7 execution with automated monitoring
+
+## AI agent stack (BRAID Protocol)
+
+OpenServ AI agents use the BRAID protocol (Bounded Reasoning for Autonomous Inference and Decisions) to process on-chain signals through a Reasoning DAG:
+
+1. **Ingest:** Signal received. Wallet 0x123 (Insider Score 99/100) bought YES on Contract Y.
+2. **Liquidity Gate:** Is depth sufficient to enter without \>2% slippage? If NO → ABORT.
+3. **Risk Gate:** Does this correlate \>0.8 with existing positions? If YES → ABORT.
+4. **Execution:** Fire transaction.
+
+## Mirror vault design
+
+The Mirror Vault separates _where capital lives_ from _where liquidity and composability are best_:
+
+- **Feeder (Real Capital):** The Base vault holds funds and drives trading.
+- **Master (Public Receipt):** A Polygon-side vault observes performance and mints an ERC-20 receipt (e.g. `vBETTER`).
+
+## Cross-chain execution
+
+BETTER uses Enclave **MagicSpend++** to coordinate cross-chain execution. Users deposit USD Coin on Base while the system handles bridging and rebalancing as needed.
+
+<Note>
+  Cross-chain mechanics can evolve over time; always check the app for current behavior.
+</Note>
+
+## Why receipt tokens matter
+
+Receipt tokens make strategy exposure:
+
+- Easier to transfer
+- Tradable 24/7
+- Compatible with DeFi primitives (borrowing, LPing, etc.)

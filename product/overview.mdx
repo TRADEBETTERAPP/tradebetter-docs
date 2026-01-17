@@ -1,0 +1,52 @@
+---
+title: "Product Overview"
+description: "What BETTER is and what it does."
+---
+
+## Overview
+
+BETTER gives retail users access to institutional-grade prediction market execution through a vault-based architecture. Deposits are on Base while trades execute through a low-latency stack.
+
+## Who uses BETTER
+
+- **Passive participants:** deposit into Vaults and let the execution engine trade
+- **Active participants:** monitor signals and copy-trade in the Terminal
+
+## The Stack
+
+| Component | Function |
+|-----------|----------|
+| **Vaults** | Deposit USD Coin on Base; capital is deployed across prediction markets |
+| **Execution Engine** | Rust-first execution stack with in-region and co-located routing |
+| **AI Agents** | OpenServ agents running BRAID for bounded, verifiable decision-making |
+| **Terminal** | Real-time feeds, performance dashboards, and copy-trading tools |
+
+## User journeys
+
+### Vault-first (passive)
+1. Acquire `$BETTER` and meet the access threshold
+2. Deposit USD Coin on Base
+3. Track performance in the Terminal
+
+### Terminal-first (active)
+1. Meet access requirements
+2. Monitor signals and context in real time
+3. Copy-trade or execute manually alongside vault activity
+
+## Constraints and dependencies
+
+- **Network:** deposits occur on Base
+- **Access:** Terminal access is gated by `$BETTER` holdings; Vault deposits require staking the same quantity
+- **Execution venues:** prediction market liquidity and availability can vary
+
+## Why Rust
+
+Python and Node.js are too slow. In high-frequency trading, garbage collection pauses are death.
+
+The Terminal targets approximately 0.6 milliseconds tick-to-trade, measured from mempool read to transaction hash on Base, then to order finality on Polymarket (Polygon).
+
+For Terminal launch, production routing is co-located in the same data centre facility as the relevant prediction market order books.
+
+<Note>
+  For system architecture and execution flow, see [How It Works](/product/how-it-works).
+</Note>

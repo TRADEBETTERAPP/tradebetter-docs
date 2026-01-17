@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --better-void: #000000;
+  --better-surface: rgba(10, 10, 10, 0.78);
+  --better-surface-solid: #0a0a0a;
+  --better-blue: #0026ff;
+  --better-grey: #4c526f;
+  --better-white: #fafafa;
+}
+
+html,
+body {
+  background: var(--better-void);
+}
+
+body {
+  color: var(--better-white);
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+/* Scanlines + soft grain */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.22;
+  background-image:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.05) 0px,
+      rgba(255, 255, 255, 0.02) 1px,
+      rgba(0, 0, 0, 0) 3px,
+      rgba(0, 0, 0, 0) 6px
+    );
+  mix-blend-mode: overlay;
+}
+
+/* Navbar */
+#navbar {
+  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.7);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Links */
+a {
+  color: var(--better-blue);
+}
+
+a:hover {
+  color: var(--better-white);
+}
+
+/* Liquid-metal panels */
+.card,
+.callout,
+.panel,
+.code-block,
+pre {
+  background: linear-gradient(
+      135deg,
+      rgba(0, 38, 255, 0.12) 0%,
+      rgba(10, 10, 10, 0.65) 45%,
+      rgba(76, 82, 111, 0.14) 100%
+    ),
+    var(--better-surface);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before,
+.callout::before,
+.panel::before,
+.code-block::before,
+pre::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.10) 40%,
+    rgba(255, 255, 255, 0) 80%
+  );
+  transform: translateX(-120%);
+  animation: better-shimmer 3.2s linear infinite;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+@keyframes better-shimmer {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+/* Brutalist corner marks */
+.card::after,
+.callout::after,
+.panel::after,
+.code-block::after,
+pre::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 14px;
+  height: 14px;
+  border-top: 2px solid rgba(255, 255, 255, 0.45);
+  border-left: 2px solid rgba(255, 255, 255, 0.45);
+  pointer-events: none;
+}
+
+/* Code */
+code {
+  font-family: inherit;
+}
+
+pre {
+  padding: 14px;
+}
+
+pre code {
+  background: transparent;
+}
+
+/* Scrollbars (WebKit) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--better-void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(76, 82, 111, 0.55);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 38, 255, 0.85);
+}
