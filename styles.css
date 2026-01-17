@@ -6,7 +6,11 @@
   --better-surface-solid: #0a0a0a;
   --better-blue: #0026ff;
   --better-grey: #4c526f;
-  --better-white: #fafafa;
+  --better-white: #ffffff;
+}
+
+html {
+  color-scheme: dark;
 }
 
 html,
@@ -15,9 +19,22 @@ body {
 }
 
 body {
+  background:
+    radial-gradient(
+      900px 650px at 100% 100%,
+      rgba(0, 38, 255, 0.18) 0%,
+      rgba(0, 38, 255, 0.10) 22%,
+      rgba(0, 0, 0, 0) 62%
+    ),
+    var(--better-void);
   color: var(--better-white);
   font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
+}
+
+/* Pure-white typography everywhere */
+body :where(*) {
+  color: var(--better-white) !important;
 }
 
 /* Scanlines + soft grain */
@@ -48,11 +65,22 @@ body::before {
 
 /* Links */
 a {
-  color: var(--better-blue);
+  color: var(--better-white) !important;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 38, 255, 0.85);
+  text-underline-offset: 3px;
 }
 
 a:hover {
-  color: var(--better-white);
+  text-decoration-color: var(--better-white);
+}
+
+/* Fallback: hide any theme toggle button if it renders */
+button[aria-label*="theme" i],
+button[aria-label*="mode" i],
+button[title*="theme" i],
+button[title*="mode" i] {
+  display: none !important;
 }
 
 /* Liquid-metal panels */

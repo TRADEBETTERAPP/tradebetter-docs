@@ -9,7 +9,8 @@
   },
   "backgroundImage": "/images/bg-scanlines.svg",
   "modeToggle": {
-    "default": "dark"
+    "default": "dark",
+    "enabled": false
   },
 
   "favicon": "/favicon.svg",
