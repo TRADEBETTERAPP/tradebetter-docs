@@ -79,13 +79,13 @@ Over time, participants experience casino fatigue. They become less willing to a
 
 ### 2.1 Binary settlement
 
-A prediction market contract pays **US$1.00** if an event resolves YES and **US$0.00** otherwise. Settlement is enforced by an oracle resolution system.
+A prediction market contract pays **US\$1.00** if an event resolves YES and **US\$0.00** otherwise. Settlement is enforced by an oracle resolution system.
 
 Unlike perpetual futures, a market maker cannot wick a real-world outcome.
 
 ### 2.2 The hard floor of value
 
-If a trader holds a winning share to maturity, the payout is mathematically fixed at **US$1.00**. This creates a hard floor of value that does not exist in floating-index derivatives.
+If a trader holds a winning share to maturity, the payout is mathematically fixed at **US\$1.00**. This creates a hard floor of value that does not exist in floating-index derivatives.
 
 ### 2.3 The brutal reality check
 
@@ -127,15 +127,15 @@ Manual copy trading degrades under slippage.
 
 Example:
 
-1. Master trader buys at **US$0.40**.
+1. Master trader buys at **US\$0.40**.
 2. Copy system reacts **2 to 5 seconds** later.
-3. Copier buys at **US$0.45**.
-4. Both sell at **US$0.50**.
+3. Copier buys at **US\$0.45**.
+4. Both sell at **US\$0.50**.
 
 Profit comparison:
 
-- Master: **US$0.10** per share, **25 per cent**.
-- Copier: **US$0.05** per share, **11 per cent**.
+- Master: **US\$0.10** per share, **25 per cent**.
+- Copier: **US\$0.05** per share, **11 per cent**.
 
 Fees and gas consume the degraded edge.
 
@@ -157,18 +157,18 @@ If the majority loses, a minority captures the alpha window. On-chain behaviour 
 
 Case study: the 2024 Nobel Peace Prize market.
 
-- A wallet identified as 6741 placed a **US$50,000** position approximately **nine hours** before the official announcement.
+- A wallet identified as 6741 placed a **US\$50,000** position approximately **nine hours** before the official announcement.
 - The implied probability shifted from **3 per cent** to **70 per cent** shortly after.
 
 The BETTER approach does not rely on possessing inside information. It detects the footprint of informed flow and replicates it within the same latency regime.
 
 ### 4.2 Endgame sweeping
 
-When an outcome becomes near-certain, contracts often trade at a discount (for example **US$0.96** or **US$0.97**) due to temporary liquidity gaps. Automated systems sweep available shares and redeem at **US$1.00**, capturing an approximately **4 per cent** return over minutes.
+When an outcome becomes near-certain, contracts often trade at a discount (for example **US\$0.96** or **US\$0.97**) due to temporary liquidity gaps. Automated systems sweep available shares and redeem at **US\$1.00**, capturing an approximately **4 per cent** return over minutes.
 
 ### 4.3 Cross-venue probability alignment
 
-Sports and macro markets exhibit an odds-consensus across external venues. A simple alignment trade exists when one venue implies **66 per cent** and the prediction market trades at **US$0.60**.
+Sports and macro markets exhibit an odds-consensus across external venues. A simple alignment trade exists when one venue implies **66 per cent** and the prediction market trades at **US\$0.60**.
 
 ---
 
@@ -228,7 +228,7 @@ Inference is advisory and bounded. Execution is deterministic and authoritative.
 
 ### 6.1 Contract model and notation
 
-A binary contract pays **US$1.00** if an event resolves YES and **US$0.00** otherwise.
+A binary contract pays **US\$1.00** if an event resolves YES and **US\$0.00** otherwise.
 
 - Let \(\pi\in(0,1)\) be the displayed executable ask price for YES.
 - Let \(p\in(0,1)\) be the engine's subjective probability of YES.
