@@ -25,10 +25,11 @@ body {
 body {
   background:
     radial-gradient(
-      900px 650px at 100% 100%,
+      1900px 1400px at 100% 100%,
       rgba(0, 38, 255, 0.18) 0%,
-      rgba(0, 38, 255, 0.10) 22%,
-      rgba(0, 0, 0, 0) 62%
+      rgba(0, 38, 255, 0.10) 28%,
+      rgba(0, 38, 255, 0.05) 58%,
+      rgba(0, 0, 0, 0) 88%
     ),
     var(--better-void);
   color: var(--better-white);

@@ -3,10 +3,11 @@ title: "Whitepaper"
 description: "The End of the Casino. The Beginning of the Truth."
 ---
 
+
 # The End of the Casino. The Beginning of the Truth.
 
 <Note>
-  This whitepaper summarises the market rotation towards prediction markets, the physics of latency ("alpha decay"), and how BETTER packages institutional-grade execution into a retail-accessible Terminal and Vault system.
+  This whitepaper maps the structural rotation from leveraged perpetual futures into prediction markets, quantifies why manual retail trading fails under latency-driven alpha decay, and specifies BETTER's deterministic trading engine and bounded inference stack.
 </Note>
 
 All monetary amounts are denominated in United States dollars unless stated otherwise.
@@ -15,205 +16,408 @@ All monetary amounts are denominated in United States dollars unless stated othe
 
 ## Executive summary
 
-For the past half-decade, a large portion of retail crypto trading activity has concentrated in leveraged perpetual futures. As capital migrates into prediction markets, settlement becomes more objective, but trading remains structurally unequal.
+Crypto is undergoing its most significant structural rotation since the decentralised finance cycle of 2020. For the past half-decade, retail capital has concentrated in leveraged perpetual futures. That era rewarded leverage, liquidation mechanics, and microstructure games.
 
-The primary structural advantage shifts from liquidation mechanics to latency.
+Capital is migrating toward prediction markets where settlement is anchored to verifiable outcomes. The venue changes, but the structural disadvantage persists. Settlement can be fair while trading remains unequal.
 
-BETTER is a liquidity abstraction layer that combines signal discovery, bounded decision-making, and low-latency execution into a retail-accessible system for prediction markets:
+The advantage shifts from liquidation engines to latency.
 
-- **Terminal:** real-time signal feed with execution context and copy-trading.
+On-chain analysis indicates that approximately **89 per cent** of retail participants on Polymarket realise net losses. The primary reason is not settlement. It is alpha decay.
+
+BETTER is a liquidity abstraction layer that packages institutional-grade execution into a retail-accessible system:
+
+- **Terminal:** real-time signal feed, execution context, and copy-trading tooling.
 - **Vaults:** pooled USD Coin on Base that executes strategies on behalf of depositors.
-- **Execution rails:** Rust-first, co-located and in-region routing.
-- **OpenServ agents (BRAID):** bounded decision graphs that apply verifiable constraints before any trade.
+- **Execution rails:** Rust-first, in-region and co-located routing.
+- **OpenServ agents (BRAID):** bounded reasoning DAGs and machine-checkable decision records.
 
-BETTER is raising **US$500,000** via a simple agreement for future equity to bring the Terminal, co-located routing, and initial Vault releases to production.
+### Key quantitative claims (internal telemetry)
 
-### Key operating claims (from internal telemetry)
+- More than **10 million** signals collected in approximately **five months**.
+- **10,000 to 40,000** elite-wallet trade setups per day.
+- Approximately **0.6 milliseconds** tick-to-trade, measured from mempool read to transaction hash on Base, then to order finality on Polymarket (Polygon).
+- The system filters approximately **40,000** distinct on-chain signals per day.
 
-- **Signals:** more than **10 million** signals collected in approximately **five months**.
-- **Daily setups:** **10,000–40,000** elite-wallet trade setups per day.
-- **Latency (public claim):** approximately **0.6 milliseconds** tick-to-trade, measured from mempool read to transaction hash on Base, then to order finality on Polymarket (Polygon).
+These figures vary with market conditions, venue availability, and network performance.
 
-These figures reflect internal telemetry and may vary with market conditions, venue availability, and network performance.
-
----
-
-## Part I — The end of the casino
-
-### Why leveraged crypto markets feel adversarial
-
-Perpetual futures enable leverage and continuous trading, but they also amplify structural disadvantages for manual traders:
-
-- forced liquidation dynamics
-- thin order-book moments and abrupt price dislocations
-- asymmetric access to low-latency infrastructure and order-flow data
-
-Over time, this produces “casino fatigue”: users increasingly seek markets where settlement is anchored to verifiable outcomes.
+<Note>
+  Earlier drafts of this thesis referenced a December 18 and January 8 token generation event and an access gate of 1,500 tokens. The current live parameters are documented in this repository, including a 21 January 2026 token generation event and a fully diluted valuation ratchet gate. The older figures remain included here as historical references.
+</Note>
 
 ---
 
-## Part II — The beginning of the truth
+## Part I: The erosion of trust and the failure of the perpetual casino
 
-Prediction markets settle contracts based on real-world facts. Unlike floating-index derivatives, contracts settle to a fixed value (for example: US$1.00 for YES, US$0.00 for NO) once an oracle resolves the outcome.
+### 1.1 The illusion of price action
 
-This removes a set of manipulation vectors present in leveraged derivatives, but it does not make execution fair.
+Perpetual futures promise price action. Retail traders believe chart reading, support and resistance, and macro narratives are sufficient to profit. In practice, they trade inside a venue optimised for professional liquidity providers.
 
-Settlement can be objective while microstructure remains competitive.
+### 1.2 The mechanics of liquidity pulling
 
----
+The dominant extraction pattern is liquidity pulling. In this pattern, professional participants target the weighted average liquidation price of a leveraged cohort.
 
-## Part III — The physics of alpha decay
+The process operates in four phases:
 
-### Alpha decays in milliseconds
+1. **The bait (accumulation):** price drifts into a technical buy zone. Retail enters with leverage, typically **10x to 50x**.
+2. **The trap (identification):** algorithms estimate the cohort liquidation band.
+3. **The pull (withdrawal):** buy-side liquidity is removed in a synchronised event.
+4. **The harvest (the wick):** price snaps into liquidation levels, triggering stops and forced liquidations, then mean reverts.
 
-In prediction markets, edge is time-sensitive. When credible new information arrives (news, order flow shifts, on-chain activity), prices update rapidly. The time between signal and reprice is the “alpha window”, and it is measured in milliseconds.
+One observed proxy for this behaviour is the frequency of price wicks greater than **3 per cent** within **1-minute** candles coinciding with liquidation volume.
 
-### Human versus machine execution (illustrative)
+### 1.3 The regulatory smoking gun
 
-1. Information is published (T = 0).
-2. Automated systems ingest and execute within milliseconds.
-3. The order book reprices.
-4. Humans receive notifications, open an application, and submit orders later.
+In late 2024, United States law enforcement ran a public operation using a decoy token (NexFundAI) to test whether market participants would offer manipulation services. The result validated that market manipulation can be offered as a service.
 
-The consequence is predictable: manual trading often buys stale odds, while automated traders capture the move.
+### 1.4 Casino fatigue
 
-### Why manual copy trading degrades
-
-Copy trading that follows observed trades introduces structural drag:
-
-- slippage from chasing moved prices
-- adverse selection when fast traders exit into slower followers
-- fees that consume already-thin edges
+Over time, participants experience casino fatigue. They become less willing to accept microstructure outcomes that feel disconnected from fundamentals. This creates demand for markets that settle on facts.
 
 ---
 
-## Part IV — Who wins in prediction markets
+## Part II: The migration to truth and the rise of prediction markets
 
-Consistently profitable behaviour tends to fall into a small number of categories:
+### 2.1 Binary settlement
 
-1. **Speed-first execution:** reacting quickly to new information and order-flow shifts.
-2. **Endgame sweeping:** buying contracts that are near-certain but still discounted due to temporary liquidity gaps.
-3. **Cross-venue probability arbitrage:** aligning odds with other liquid markets (sportsbooks, exchanges, or structured information feeds).
+A prediction market contract pays **US$1.00** if an event resolves YES and **US$0.00** otherwise. Settlement is enforced by an oracle resolution system.
 
-BETTER is designed to package these behaviours into a single system, with bounded constraints and risk controls.
+Unlike perpetual futures, a market maker cannot wick a real-world outcome.
 
----
+### 2.2 The hard floor of value
 
-## Part V — BETTER: democratising speed
+If a trader holds a winning share to maturity, the payout is mathematically fixed at **US$1.00**. This creates a hard floor of value that does not exist in floating-index derivatives.
 
-### Product primitives
+### 2.3 The brutal reality check
 
-#### Terminal (active)
+Despite fair settlement, retail traders still lose. Approximately **89 per cent** of retail participants on Polymarket realise net losses.
 
-The Terminal surfaces real-time signal context:
-
-- elite-wallet setups and historical accuracy scoring
-- liquidity depth and slippage estimates
-- correlation context and risk limits
-
-Terminal access is gated by holding `$BETTER`.
-
-#### Vaults (passive)
-
-Vaults pool USD Coin on Base and execute strategies on behalf of depositors:
-
-- deposit USD Coin
-- BETTER executes qualified strategies
-- performance fees apply only on realised profit, charged on withdrawal
-
-Vault access is gated by staking `$BETTER` (the same quantity required to view the Terminal).
-
-### Architecture (conceptual)
-
-1. **Ingest:** on-chain activity, order-book data, and external feeds.
-2. **Score:** rank wallets and events using statistical and historical features.
-3. **Decide (BRAID):** build a reasoning DAG and apply explicit constraints (liquidity, slippage, correlation, and risk limits).
-4. **Execute:** a Rust execution engine submits transactions with low-latency routing.
-5. **Account:** optional receipt tokens can represent vault performance.
-
-### What is BRAID?
-
-BRAID (Bounded Reasoning for Autonomous Inference and Decisions) is BETTER’s constrained decision framework.
-
-It emphasises explicit constraints over free-form automation:
-
-- auditable decision records
-- abort conditions when liquidity or risk thresholds are breached
-- deterministic execution paths
+The explanation is the gap between settlement fairness and microstructure fairness.
 
 ---
 
-## Part VI — Token economics and alignment
+## Part III: The physics of alpha decay
+
+### 3.1 Alpha is a melting ice cube
+
+In prediction markets, alpha is a short-lived pricing error created by information asymmetry. In the digital age, information propagates quickly. Alpha decay is measured in milliseconds.
+
+### 3.2 The timeline of a trade: human versus machine
+
+Scenario: a breaking-news message confirms that an outcome has become far more likely.
+
+1. **The event (T = 0.000s):** information is published.
+2. **Machine reaction (T = 0.010s):** automated systems ingest the event, compute the new probability, and place orders.
+3. **Price discovery (T = 0.100s):** the order book reprices and the alpha window collapses.
+4. **Human reaction (T = 30.000s):** the retail trader receives a notification.
+5. **Retail execution (T = 45.000s):** the retail trader opens the venue and buys at the post-reprice level.
+
+The retail trader buys stale odds. The machine sells into that demand.
+
+### 3.3 Co-location and execution priority
+
+The gap is not a skill gap. It is physics. Professional execution uses:
+
+- co-located or in-region routing
+- direct smart contract interaction and sequencer-aware submission
+- priority mechanisms, including MEV-style ordering, where applicable
+
+### 3.4 The fallacy of manual copy trading
+
+Manual copy trading degrades under slippage.
+
+Example:
+
+1. Master trader buys at **US$0.40**.
+2. Copy system reacts **2 to 5 seconds** later.
+3. Copier buys at **US$0.45**.
+4. Both sell at **US$0.50**.
+
+Profit comparison:
+
+- Master: **US$0.10** per share, **25 per cent**.
+- Copier: **US$0.05** per share, **11 per cent**.
+
+Fees and gas consume the degraded edge.
+
+### 3.5 Behavioural taxes
+
+Retail participants also pay behavioural taxes:
+
+- **Long-shot bias:** buying contracts priced at **1 cent** or **2 cents** hoping for **100x**, overweighting small probabilities (treating **1 per cent** like **5 per cent**).
+- **Wishcasting:** betting on desired outcomes rather than evidence.
+- **Duration mismanagement:** holding to maturity and absorbing tail risk and lock-up opportunity cost.
+
+---
+
+## Part IV: The elite tier
+
+If the majority loses, a minority captures the alpha window. On-chain behaviour clusters into three archetypes.
+
+### 4.1 Information-driven flow
+
+Case study: the 2024 Nobel Peace Prize market.
+
+- A wallet identified as 6741 placed a **US$50,000** position approximately **nine hours** before the official announcement.
+- The implied probability shifted from **3 per cent** to **70 per cent** shortly after.
+
+The BETTER approach does not rely on possessing inside information. It detects the footprint of informed flow and replicates it within the same latency regime.
+
+### 4.2 Endgame sweeping
+
+When an outcome becomes near-certain, contracts often trade at a discount (for example **US$0.96** or **US$0.97**) due to temporary liquidity gaps. Automated systems sweep available shares and redeem at **US$1.00**, capturing an approximately **4 per cent** return over minutes.
+
+### 4.3 Cross-venue probability alignment
+
+Sports and macro markets exhibit an odds-consensus across external venues. A simple alignment trade exists when one venue implies **66 per cent** and the prediction market trades at **US$0.60**.
+
+---
+
+## Part V: BETTER, a structural solution to the inequality of speed
+
+### 5.1 What BETTER is
+
+BETTER is not a signal group. It is not a chat room. It is a liquidity abstraction layer between user capital and prediction market execution.
+
+The thesis is simple: the alpha window is not accessible manually. Execution must be machine-mediated.
+
+### 5.2 Technology: OpenServ agents and BRAID
+
+BETTER uses OpenServ agents running BRAID (Bounded Reasoning for Autonomous Inference and Decisions). Each trade is gated by a machine-checkable reasoning DAG.
+
+Example gate:
+
+1. Ingest: wallet trigger detected with an Insider Score.
+2. Liquidity gate: can the trade enter without more than **2 per cent** slippage?
+3. Risk gate: does correlation exceed **0.8** with existing exposure?
+4. Execute: submit via deterministic execution paths.
+
+If the logic does not hold, the trade does not execute.
+
+### 5.3 Infrastructure: speed as the product
+
+The Terminal targets approximately **0.6 milliseconds** tick-to-trade, defined as mempool read to transaction hash on Base, then to order finality on Polymarket (Polygon).
+
+### 5.4 Filtering engine: separating signal from noise
+
+Speed without curation is a fast way to lose money. BETTER filters approximately **40,000** daily signals and maintains a rotating pool of elite directional wallets.
+
+The Z-score engine weights features beyond simple profit and loss:
+
+| Metric | Why it matters |
+| --- | --- |
+| Sharpe ratio | Risk-adjusted return; high volatility is penalised |
+| Sortino ratio | Downside-aware risk-adjusted return |
+| Win rate | Consistency across large samples |
+| Profit per trade | Scalping versus trend capture |
+| Wallet age and interaction patterns | Informed-flow detection and burner suppression |
+
+### 5.5 Vault abstraction
+
+The Vault product packages this stack into one action: deposit USD Coin on Base, meet the `$BETTER` access gate, and allow the engine to rotate across qualified opportunities.
+
+---
+
+## Part VI: Deterministic trading engine specification (current implementation)
+
+The engine is split into two deterministic routes:
+
+- **FAST15M:** Rust-only for short-horizon up and down markets.
+- **LONG:** bounded inference via BRAID workflows and multi-LLM consensus, with deterministic execution and sizing.
+
+Inference is advisory and bounded. Execution is deterministic and authoritative.
+
+### 6.1 Contract model and notation
+
+A binary contract pays **US$1.00** if an event resolves YES and **US$0.00** otherwise.
+
+- Let \(\pi\in(0,1)\) be the displayed executable ask price for YES.
+- Let \(p\in(0,1)\) be the engine's subjective probability of YES.
+- Let \(B\) be the bankroll allocated to the engine.
+- Deployed notional is \(x\in[0,B]\), with fraction \(f=x/B\).
+
+### 6.2 Core invariant: bounded inference, deterministic execution
+
+The inference layer can reason freely, but it may only emit a bounded record with strict types. The deterministic core recomputes all numeric quantities and refuses any action that violates invariants.
+
+Malformed inference outputs are treated as abstentions.
+
+### 6.3 Routing and persistent state
+
+Markets route deterministically:
+
+`Route(k) ∈ { FAST15M, LONG }`
+
+Per-market state tracks book snapshots, spreads, depth proxies, time-to-expiry, wallet caches, inference bookkeeping, and current exposure.
+
+### 6.4 Deterministic admissibility predicate
+
+Admissibility is evaluated before any inference call, sizing, or order placement:
+
+`Adm(k,t) = 1{Δt ≤ Tmax(Route(k))} · 1{SpreadBps ≤ Smax(Route(k))} · 1{Depth ≥ Dmin(Route(k))}`
+
+### 6.5 Wallet behaviour filter
+
+Wallets are filtered deterministically to suppress non-directional flow.
+
+A wallet is flagged two-sided if it trades both outcomes inside a short window. Only directional wallets contribute to triggers.
+
+### 6.6 Costs, effective price, and net edge discipline
+
+All decisions use effective prices including conservative costs:
+
+`πeff = πask + cfee + cslip(k,t)`
+
+Net edge for buying YES is `eYES = p − πeff`. Trades require `e ≥ τmin(Route(k))`.
+
+### 6.7 Kelly sizing with conservative multipliers and hard caps
+
+For a YES buy, the cost-adjusted Kelly fraction is:
+
+`f* = max(0, (p − πeff) / (1 − πeff))`
+
+Deployed fraction uses fractional Kelly and caps:
+
+`fdeploy = λ · min(f*, fmax)`
+
+Notional is `x = B · fdeploy`, then clipped by per-trade, per-market, and portfolio caps. No inference output can bypass caps.
+
+---
+
+### 6.8 FAST15M engine
+
+FAST15M markets are handled exclusively by Rust logic.
+
+#### Probability anchor
+
+The engine computes a conservative driftless probability anchor (with uncertainty inflation):
+
+`pup(t) = 1 − Φ( log(Sref/St) / (η·bσ·sqrt(Δt)) )`, with `η ≥ 1`.
+
+#### Permission and sizing
+
+Trades require admissibility and edge.
+
+Sizing uses ultra-small fractional Kelly and a deterministic jump-risk haircut `J ∈ (0,1)`:
+
+`fdeploy = λ15m · J · min(f*, f15m_max)`
+
+#### Execution state machine
+
+Orders follow a deterministic state machine:
+
+- **Join:** maker posting under stable depth and sufficient time.
+- **Chase:** bounded cancel-repost with deterministic cooldown.
+- **Cross:** taker execution only when edge exceeds a stricter threshold and time-to-expiry is small.
+- **Abort:** do nothing, log reason.
+
+Client order ids are deterministic and idempotent.
+
+---
+
+### 6.9 LONG engine: BRAID graphs and multi-LLM consensus
+
+LONG markets call bounded inference under strict throttles and budgets.
+
+#### Bounded decision record
+
+Each model emits a strict record. Narrative content is ignored.
+
+Example record fields:
+
+```text
+ACTION=BUY|SELL|HOLD
+OUTCOME=YES|NO
+P_TRUE=0.xx
+UNCERTAINTY=LOW|MED|HIGH
+SIZE_MULT=0.xx
+FLAGS=...
+RATIONALE_HASH=...
+```
+
+Malformed records are treated as abstentions.
+
+#### Consensus gate
+
+A trade is permitted only with **3-of-4** consensus on direction.
+
+#### Aggregation and dispersion penalty
+
+The deterministic core aggregates probabilities using calibration weights, then applies a dispersion penalty that reduces deployed risk when agreeing models disagree.
+
+#### Debouncing and budgeting
+
+Inference is per-market debounced with deterministic triggers. A strict global budget is enforced. Budget exhaustion yields abstention rather than weakened constraints.
+
+---
+
+### 6.10 Exit and de-risking
+
+As prices approach extremes, remaining upside is small while dispute risk, ambiguity, and capital lock-up dominate.
+
+The engine implements deterministic scale-out bands. One reference schedule uses bands at **0.90** and **0.95**.
+
+This is designed to manage the common path where an entry near **0.40** compresses toward **0.95**.
+
+---
+
+### 6.11 Storage, audit, and monitoring
+
+Hot-path trading uses compact storage (no large JSON parsing). Every decision and fill is logged for replay.
+
+Monitoring includes realised versus assumed slippage, fill rates, abstention reasons, edge distributions, calibration curves, and exposure concentration.
+
+---
+
+## Part VII: In-house open-source LLM and OpenRouter API credits
+
+BETTER trains an in-house, open-source LLM exclusively on prediction market data and makes it available via OpenRouter.
+
+Access is sold as API credits through OpenRouter. This is distinct from BETTER application telemetry endpoints.
+
+---
+
+## Part VIII: Token economics and alignment
 
 ### Token summary
 
-- **Token:** `$BETTER`
-- **Network:** Base
-- **Total supply:** 1,000,000,000
-- **Initial liquidity:** Base **BETTER/ETH** pool (liquidity provider tokens locked)
+- Token: `$BETTER`
+- Network: Base
+- Total supply: 1,000,000,000
+- Initial liquidity: Base BETTER/ETH pool (liquidity provider tokens locked)
 
-### Allocation (summary)
+### Allocation and vesting
 
-| Allocation | Per cent | Amount | Notes |
+| Allocation | Per cent | Amount | Vesting and lock-up |
 | --- | ---: | ---: | --- |
 | Public sale (launchpad) | 25% | 250,000,000 | Unlocked at the token generation event |
 | Liquidity (Base BETTER/ETH) | 15% | 150,000,000 | Locked permanently (liquidity provider tokens locked) |
-| Team | 20% | 200,000,000 | Zero per cent at the token generation event; six-month cliff then nine-month linear release |
-| Treasury | 25% | 250,000,000 | Unlocked at the token generation event |
+| Team | 20% | 200,000,000 | 15-month vesting with a 6-month cliff, then 9-month linear unlock |
+| Treasury | 25% | 250,000,000 | 12-month linear unlock from the token generation event |
 | OpenServ SERV token drop | 5% | 50,000,000 | Unlocked (claimed by SERV token stakers via tasks) |
 | Programmatic funding | 10% | 100,000,000 | Released across fully diluted valuation bands |
 
 Initial circulating supply is defined as the public sale allocation plus the liquidity allocation: approximately 400,000,000 tokens (40 per cent).
 
-### Access gating (ratchet)
+### Access gating
 
-Access thresholds decrease as fully diluted valuation rises, targeting a comparatively stable USD access cost while limiting congestion.
+Hold `$BETTER` to view the Terminal. Stake the same quantity to deposit into Vaults.
 
-Hold `$BETTER` to view the Terminal; stake the same quantity to deposit into Vaults.
+The current access gate ratchets by fully diluted valuation. See [Tokenomics](/token/tokenomics) for phase thresholds, worked examples, and Lite Mode behaviour.
 
-See [Tokenomics](/token/tokenomics) for phase thresholds, worked examples, and Lite Mode behaviour.
+### Fees
 
-### Vault fees
-
-- **Performance fee:** twenty per cent on profits only.
-- **Timing:** charged on withdrawal.
-- **No fee on losses:** no fee if USD Coin withdrawn is below entry value (based on average entry per wallet).
-
-### Lite Mode (Terminal)
-
-Lite Mode is an optional execution path enabled at log-in:
-
-- halves the Terminal holding requirement
-- Vault staking requirements remain unchanged
-- charges two per cent of notional volume (in USD Coin terms) on trades executed via the Terminal in Lite Mode
+- Vault performance fee: 20 per cent on profits only, charged on withdrawal.
+- Lite Mode: 2 per cent of notional volume (in USD Coin terms) traded via the Terminal.
 
 ---
 
 ## Roadmap
 
-### 21 January 2026
-
-- Token generation event
-- Terminal live within 48 hours
-
-### January 2026
-
-- Vaults live (staged rollout)
-
-### First quarter of 2026
-
-- Tokenised vault shares (`vBETTER`)
-- Kalshi and Opinion integrations complete (March 2026)
-- Business-to-business Rust data ingestion product
-
-### Second quarter of 2026
-
-- In-house open-source model training and application programming interface credits
-- Arbitrage flywheel
-
-### Fourth quarter of 2026
-
-- `$TRUTH-PERP` on Hyperliquid
+- 21 January 2026: token generation event; Terminal live within 48 hours.
+- January 2026: Vaults live (staged rollout).
+- First quarter of 2026: tokenised vault shares (`vBETTER`); Kalshi and Opinion integrations (March 2026); business-to-business Rust data ingestion.
+- Second quarter of 2026: in-house open-source LLM trained exclusively on prediction market data; API credits sold via OpenRouter; arbitrage flywheel.
+- Fourth quarter of 2026: `$TRUTH-PERP` on Hyperliquid.
 
 ---
 
