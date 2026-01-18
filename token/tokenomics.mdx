@@ -14,11 +14,13 @@ description: "Supply, allocations, and vesting."
 | Allocation                      | Per cent |      Amount | Vesting / lock-up                                                                       |
 | ------------------------------ | ------: | ----------: | --------------------------------------------------------------------------------------- |
 | Public sale (launchpad)        |     25% | 250,000,000 | Unlocked at the token generation event                                                  |
-| Liquidity (Base and USD Coin)  |     15% | 150,000,000 | Locked permanently (liquidity provider tokens locked)                                   |
+| Liquidity (Base BETTER/ETH)    |     15% | 150,000,000 | Locked permanently (liquidity provider tokens locked)                                   |
 | Team                           |     20% | 200,000,000 | Zero per cent at the token generation event; six-month cliff then nine-month linear release |
 | Treasury                       |     25% | 250,000,000 | Unlocked at the token generation event                                                  |
 | OpenServ SERV token drop       |      5% |  50,000,000 | Unlocked (claimed by SERV token stakers via tasks)                                      |
 | Programmatic funding           |     10% | 100,000,000 | Released across fully diluted valuation bands                                           |
+
+Liquidity refers to the initial **BETTER/ETH** pool on **Base**; liquidity provider tokens are locked.
 
 ## Circulating Supply
 
@@ -28,7 +30,11 @@ For this document, “circulating” refers to the public sale allocation plus t
 
 ## Access gate (hold and stake)
 
-The access gate keeps USD access stable as fully diluted valuation rises, rewards early holders, and preserves execution quality by limiting congestion.
+The access gate is denominated in tokens, but designed to keep the **estimated USD cost** of access roughly stable as fully diluted valuation rises.
+
+As fully diluted valuation rises, the required `$BETTER` threshold **ratchets down**. This preserves execution quality by limiting congestion while keeping access costs comparatively stable.
+
+This “rewards early holders” in a simple way: if you bought enough `$BETTER` to meet an earlier (higher) threshold, you may be able to reduce your token exposure later (by selling down to the new lower requirement) while retaining access.
 
 - Hold `$BETTER` to view the Terminal.
 - Stake the same quantity to deposit into Vaults.
@@ -37,15 +43,25 @@ Staked `$BETTER` remains locked until you withdraw all funds from the vault.
 
 ### Gate phases
 
-- **Phase one (below US$10 million fully diluted valuation):** 100,000 `$BETTER`
-  - At US$0.005 (US$5 million market capitalisation): approximately US$500
-  - At US$0.01 (US$10 million market capitalisation): approximately US$1,000
-- **Phase two (US$10 million–US$20 million fully diluted valuation):** 75,000 `$BETTER`
-  - At US$0.02 (US$20 million market capitalisation): approximately US$1,500
-- **Phase three (US$20 million–US$40 million fully diluted valuation):** 50,000 `$BETTER`
-  - At US$0.04 (US$40 million market capitalisation): approximately US$2,000
-- **Phase four (US$100 million or more fully diluted valuation):** 10,000 `$BETTER`
-  - At US$0.10 (US$100 million market capitalisation): approximately US$1,000
+| Phase | Fully diluted valuation band | Gate (hold) |
+| ----: | ---------------------------- | ----------: |
+| 1     | Below US$10 million          | 100,000     |
+| 2     | US$10 million–US$20 million  | 75,000      |
+| 3     | US$20 million–US$40 million  | 50,000      |
+| 4     | US$100 million or more       | 10,000      |
+
+Between US$40 million and US$100 million, the phase three threshold continues to apply.
+
+Illustrative access cost examples:
+
+- Phase one: approximately US$500 at US$0.005 (US$5 million market capitalisation); approximately US$1,000 at US$0.01 (US$10 million market capitalisation).
+- Phase two: approximately US$1,500 at US$0.02 (US$20 million market capitalisation).
+- Phase three: approximately US$2,000 at US$0.04 (US$40 million market capitalisation).
+- Phase four: approximately US$1,000 at US$0.10 (US$100 million market capitalisation).
+
+<Tip>
+  **Worked example (illustrative):** if you acquired **100,000** `$BETTER` at **US$0.005** (approximately **US$500**) and later the gate moves to phase two (**75,000**), you can sell **25,000** `$BETTER` and still retain access.
+</Tip>
 
 ### Lite Mode
 

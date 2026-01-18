@@ -12,7 +12,7 @@ description: "Key BETTER and prediction market terms."
 | **Kalshi** | US regulatory-approved prediction market platform. |
 | **Opinion.xyz** | Emerging prediction market protocol. |
 | **CLOB** | Central Limit Order Book—a market structure with bids, asks, and matching. |
-| **Alpha Decay** | The rapid erosion of trading edge once information becomes widely known and priced in. In prediction markets, alpha decays at the speed of light. |
+| **Alpha Decay** | The rapid erosion of trading edge once information becomes widely known and priced in; in prediction markets, this can occur within milliseconds. |
 | **PvP** | Player vs Player—the Casino Era dynamic where profit comes at the expense of other participants. |
 
 ## BETTER Architecture
@@ -24,11 +24,13 @@ description: "Key BETTER and prediction market terms."
 | **Vault** | A pooled USD Coin deposit product on Base (staged rollout). For depositors, strategies execute on their behalf and performance is tracked in the Terminal. |
 | **Terminal** | Product interface for real-time high-frequency trading feeds, performance dashboards, and copy-trading. Displays processed signals. |
 | **Execution Engine** | Rust-first execution stack with in-region and co-located routing. Public tick-to-trade claim: approximately 0.6 milliseconds, measured from mempool read to transaction hash on Base, then to order finality on Polymarket (Polygon). |
-| **BRAID Protocol** | Bounded Reasoning for Autonomous Inference and Decisions—the logic framework for OpenServ AI agents. |
+| **BRAID Protocol** | Bounded Reasoning for Autonomous Inference and Decisions—the constrained decision framework used by OpenServ agents. Trades must pass explicit checks (for example: liquidity depth, slippage, correlation, and risk limits) before execution. |
 | **Reasoning DAG** | Directed Acyclic Graph used by AI agents to verify liquidity, risk correlation, and insider signals before execution. |
 | **MagicSpend++** | Enclave's cross-chain spending abstraction enabling zero-friction deposits and execution. |
 | **Mirror Vault** | Architecture with a "feeder" vault (Base, real capital) and "master" vault (Polygon, receipt tokens). |
 | **Co-location** | Placing servers in the same data centers as exchange infrastructure for minimum latency. |
+| **Ratchet gate** | A token-denominated access threshold that decreases as fully diluted valuation rises, designed to keep the estimated USD cost of access comparatively stable across phases. |
+| **FDV** | Fully diluted valuation—the market capitalisation implied by the token price multiplied by the total token supply. |
 
 ## Tokens
 

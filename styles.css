@@ -7,6 +7,10 @@
   --better-blue: #0026ff;
   --better-grey: #4c526f;
   --better-white: #ffffff;
+
+  /* Mintlify theme vars (keep dark-only + pure white text) */
+  --background: #000000;
+  --text: #ffffff;
 }
 
 html {
@@ -44,7 +48,7 @@ body::before {
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.22;
+  opacity: 0.16;
   background-image:
     repeating-linear-gradient(
       180deg,
@@ -54,6 +58,25 @@ body::before {
       rgba(0, 0, 0, 0) 6px
     );
   mix-blend-mode: overlay;
+}
+
+@media (max-width: 768px) {
+  body::before {
+    opacity: 0.10;
+  }
+}
+
+/* Prose: prevent mobile overflow without breaking code blocks */
+.prose {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Sidebar / mobile nav surfaces */
+aside,
+#sidebar {
+  background: rgba(0, 0, 0, 0.85) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Navbar */
@@ -103,7 +126,6 @@ pre {
 }
 
 .card::before,
-.callout::before,
 .panel::before,
 .code-block::before,
 pre::before {
@@ -120,6 +142,21 @@ pre::before {
   animation: better-shimmer 3.2s linear infinite;
   opacity: 0.35;
   pointer-events: none;
+}
+
+/* Callouts should prioritise readability over animation */
+.callout {
+  background: rgba(0, 0, 0, 0.88);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card::before,
+  .panel::before,
+  .code-block::before,
+  pre::before {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 @keyframes better-shimmer {

@@ -11,6 +11,8 @@ BETTER combines data ingestion, signal processing, and low-latency execution int
   BETTER is launching in stages. This page describes the intended production flow; availability depends on staged releases.
 </Note>
 
+### 1. Data ingestion
+
 The system is designed to monitor blockchain mempools and prediction market order books in real time:
 
 - **On-chain transactions:** Wallet movements, contract interactions, insider activity
@@ -20,6 +22,10 @@ The system is designed to monitor blockchain mempools and prediction market orde
 For Terminal launch, production routing is co-located in the same data centre facility as the relevant order books.
 
 ### 2. Signal processing (BRAID Protocol)
+
+BRAID (Bounded Reasoning for Autonomous Inference and Decisions) is the constrained decision framework used by BETTER’s OpenServ agents.
+
+Rather than “free-form” automation, BRAID requires each trade to pass a verifiable sequence of checks (for example: liquidity depth, slippage, correlation, and risk limits) before it can be executed.
 
 Raw data is processed through the OpenServ AI agents running the BRAID protocol. The system builds a **Reasoning DAG** (Directed Acyclic Graph) that:
 

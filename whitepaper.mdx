@@ -1,19 +1,13 @@
 ---
 title: "Whitepaper"
-description: "The BETTER whitepaper: vision, product, traction, business model, token economics, and roadmap."
+description: "The End of the Casino. The Beginning of the Truth."
 ---
 
-# BETTER Whitepaper
+# The End of the Casino. The Beginning of the Truth.
 
 <Note>
-  This document is written for venture capitalists and early-stage investors evaluating BETTER. It is intended to be read quickly at first pass, then revisited during diligence.
+  This whitepaper summarises the market rotation towards prediction markets, the physics of latency ("alpha decay"), and how BETTER packages institutional-grade execution into a retail-accessible Terminal and Vault system.
 </Note>
-
-## Reading guide
-
-- If you have five minutes: read **Executive summary**, **Traction**, **Business model**, and **Token economics and access gating**.
-- If you have fifteen minutes: also read **Product**, **Competitive moat**, and **Roadmap**.
-- If you are doing diligence: read **Technical architecture (conceptual)** and **Risks and disclaimers**.
 
 All monetary amounts are denominated in United States dollars unless stated otherwise.
 
@@ -21,157 +15,149 @@ All monetary amounts are denominated in United States dollars unless stated othe
 
 ## Executive summary
 
-BETTER is building execution infrastructure for prediction markets that allows retail traders to access professional-grade speed and tooling.
+For the past half-decade, a large portion of retail crypto trading activity has concentrated in leveraged perpetual futures. As capital migrates into prediction markets, settlement becomes more objective, but trading remains structurally unequal.
 
-In prediction markets, edge decays quickly: when news breaks, prices move in milliseconds. People trading manually often arrive after the move; algorithmic systems arrive first.
+The primary structural advantage shifts from liquidation mechanics to latency.
 
-BETTER’s approach is to make speed available to retail traders through:
+BETTER is a liquidity abstraction layer that combines signal discovery, bounded decision-making, and low-latency execution into a retail-accessible system for prediction markets:
 
-1. **A Terminal** that surfaces elite-wallet trade setups, provides context, and enables copy trading.
-2. **Vaults** that pool USD Coin on Base and execute strategies on behalf of depositors.
-3. **A high-frequency trading execution stack** designed for in-region and co-located routing at Terminal launch.
-4. **Bounded, auditable automated decision-making** via the Bounded Reasoning for Autonomous Inference and Decisions protocol.
+- **Terminal:** real-time signal feed with execution context and copy-trading.
+- **Vaults:** pooled USD Coin on Base that executes strategies on behalf of depositors.
+- **Execution rails:** Rust-first, co-located and in-region routing.
+- **OpenServ agents (BRAID):** bounded decision graphs that apply verifiable constraints before any trade.
 
-BETTER is raising 500,000 via a simple agreement for future equity to bring the Terminal, co-located execution, and initial Vault releases to production.
+BETTER is raising **US$500,000** via a simple agreement for future equity to bring the Terminal, co-located routing, and initial Vault releases to production.
 
----
+### Key operating claims (from internal telemetry)
 
-## The problem
+- **Signals:** more than **10 million** signals collected in approximately **five months**.
+- **Daily setups:** **10,000–40,000** elite-wallet trade setups per day.
+- **Latency (public claim):** approximately **0.6 milliseconds** tick-to-trade, measured from mempool read to transaction hash on Base, then to order finality on Polymarket (Polygon).
 
-Prediction markets settle on objective outcomes, but execution is not fair.
-
-When the first credible signals emerge (on-chain wallet activity, order flow shifts, and liquidity dislocations), the market reprices rapidly. Retail traders are structurally disadvantaged:
-
-- They see the information later.
-- They react slower.
-- They face worse prices and worse fills.
-
-The result is that prediction markets can feel like a casino: sophisticated systems harvest speed-based edge while manual participants become the liquidity.
+These figures reflect internal telemetry and may vary with market conditions, venue availability, and network performance.
 
 ---
 
-## The BETTER solution
+## Part I — The end of the casino
 
-BETTER exists to democratise speed in prediction markets.
+### Why leveraged crypto markets feel adversarial
 
-Instead of competing against high-speed systems, retail users can opt into a shared execution layer:
+Perpetual futures enable leverage and continuous trading, but they also amplify structural disadvantages for manual traders:
 
-### The Terminal
+- forced liquidation dynamics
+- thin order-book moments and abrupt price dislocations
+- asymmetric access to low-latency infrastructure and order-flow data
 
-The Terminal is the active interface:
+Over time, this produces “casino fatigue”: users increasingly seek markets where settlement is anchored to verifiable outcomes.
 
-- Elite-wallet signal feed with context
-- Real-time execution stream
-- Copy trading within the Terminal
+---
+
+## Part II — The beginning of the truth
+
+Prediction markets settle contracts based on real-world facts. Unlike floating-index derivatives, contracts settle to a fixed value (for example: US$1.00 for YES, US$0.00 for NO) once an oracle resolves the outcome.
+
+This removes a set of manipulation vectors present in leveraged derivatives, but it does not make execution fair.
+
+Settlement can be objective while microstructure remains competitive.
+
+---
+
+## Part III — The physics of alpha decay
+
+### Alpha decays in milliseconds
+
+In prediction markets, edge is time-sensitive. When credible new information arrives (news, order flow shifts, on-chain activity), prices update rapidly. The time between signal and reprice is the “alpha window”, and it is measured in milliseconds.
+
+### Human versus machine execution (illustrative)
+
+1. Information is published (T = 0).
+2. Automated systems ingest and execute within milliseconds.
+3. The order book reprices.
+4. Humans receive notifications, open an application, and submit orders later.
+
+The consequence is predictable: manual trading often buys stale odds, while automated traders capture the move.
+
+### Why manual copy trading degrades
+
+Copy trading that follows observed trades introduces structural drag:
+
+- slippage from chasing moved prices
+- adverse selection when fast traders exit into slower followers
+- fees that consume already-thin edges
+
+---
+
+## Part IV — Who wins in prediction markets
+
+Consistently profitable behaviour tends to fall into a small number of categories:
+
+1. **Speed-first execution:** reacting quickly to new information and order-flow shifts.
+2. **Endgame sweeping:** buying contracts that are near-certain but still discounted due to temporary liquidity gaps.
+3. **Cross-venue probability arbitrage:** aligning odds with other liquid markets (sportsbooks, exchanges, or structured information feeds).
+
+BETTER is designed to package these behaviours into a single system, with bounded constraints and risk controls.
+
+---
+
+## Part V — BETTER: democratising speed
+
+### Product primitives
+
+#### Terminal (active)
+
+The Terminal surfaces real-time signal context:
+
+- elite-wallet setups and historical accuracy scoring
+- liquidity depth and slippage estimates
+- correlation context and risk limits
 
 Terminal access is gated by holding `$BETTER`.
 
-### Vaults
+#### Vaults (passive)
 
-Vaults are the passive interface:
+Vaults pool USD Coin on Base and execute strategies on behalf of depositors:
 
-- Users deposit USD Coin on Base
-- Automated strategies execute on behalf of depositors
-- A performance fee is charged on profits only, on withdrawal
+- deposit USD Coin
+- BETTER executes qualified strategies
+- performance fees apply only on realised profit, charged on withdrawal
 
 Vault access is gated by staking `$BETTER` (the same quantity required to view the Terminal).
 
-### Execution infrastructure
+### Architecture (conceptual)
 
-BETTER’s execution stack is built for low latency, determinism, and reliability.
+1. **Ingest:** on-chain activity, order-book data, and external feeds.
+2. **Score:** rank wallets and events using statistical and historical features.
+3. **Decide (BRAID):** build a reasoning DAG and apply explicit constraints (liquidity, slippage, correlation, and risk limits).
+4. **Execute:** a Rust execution engine submits transactions with low-latency routing.
+5. **Account:** optional receipt tokens can represent vault performance.
 
-Public tick-to-trade claim:
+### What is BRAID?
 
-- Approximately 0.6 milliseconds, measured from mempool read to transaction hash on Base, then to order finality on Polymarket (Polygon).
+BRAID (Bounded Reasoning for Autonomous Inference and Decisions) is BETTER’s constrained decision framework.
 
-For Terminal launch, production routing is designed to be co-located in the same data centre facility as the relevant prediction market order books.
+It emphasises explicit constraints over free-form automation:
 
----
-
-## Traction
-
-BETTER has already demonstrated sustained signal collection and real-time processing at scale.
-
-Traction highlights:
-
-- More than ten million signals collected in approximately five months.
-- 10,000–40,000 elite-wallet trade setups per day.
-- Approximately 0.6 milliseconds tick-to-trade (definition above).
+- auditable decision records
+- abort conditions when liquidity or risk thresholds are breached
+- deterministic execution paths
 
 ---
 
-## Market context
+## Part VI — Token economics and alignment
 
-Prediction markets are converging with multiple large markets:
+### Token summary
 
-- Gambling and sports betting
-- Financial derivatives
-- News and information distribution
+- **Token:** `$BETTER`
+- **Network:** Base
+- **Total supply:** 1,000,000,000
+- **Initial liquidity:** Base **BETTER/ETH** pool (liquidity provider tokens locked)
 
-As prediction markets mature, execution speed becomes a core differentiator, similar to equities and foreign exchange markets.
-
----
-
-## Product detail
-
-### Signals and decision-making
-
-BETTER ingests market data and on-chain activity, then produces trade setups with confidence.
-
-The decision engine uses bounded reasoning: signals are only promoted to execution when constraints are satisfied (liquidity, risk correlation, and admissibility rules).
-
-### Copy trading
-
-The Terminal enables users to act on signals without building their own infrastructure.
-
-Copy trading is part of the initial Terminal release and is planned to go live within 48 hours of the token generation event (21 January 2026).
-
-### Receipt tokens
-
-BETTER plans a receipt token (`vBETTER`) that represents a share of vault performance. Receipt tokens aim to make vault exposure transferable and tradable.
-
----
-
-## Business model
-
-BETTER is designed with multiple revenue lines:
-
-### Performance fee (Vaults)
-
-- Twenty per cent performance fee on profits only.
-- Charged on withdrawal.
-- No fee if USD Coin withdrawn is below entry value (based on average entry per wallet).
-
-### Lite Mode fee (Terminal)
-
-Lite Mode is an optional execution path enabled at log-in.
-
-- When enabled, the Terminal holding requirement halves.
-- Vault access requirements remain unchanged across fully diluted valuation tiers.
-- A fee of two per cent of notional volume (in USD Coin terms) is charged on volume traded via the Terminal.
-
-### Business-to-business product
-
-BETTER plans to sell its Rust data ingestion stack to quantitative funds and bucket shops seeking prediction market exposure.
-
-### Model training and credits
-
-After the token generation event, BETTER plans to train an in-house open-source model tuned on BETTER signals and sell application programming interface credits.
-
----
-
-## Token economics and access gating
-
-### Supply and allocations
-
-- Total supply: 1,000,000,000 `$BETTER` on Base.
-
-Allocation:
+### Allocation (summary)
 
 | Allocation | Per cent | Amount | Notes |
 | --- | ---: | ---: | --- |
 | Public sale (launchpad) | 25% | 250,000,000 | Unlocked at the token generation event |
-| Liquidity (Base and USD Coin) | 15% | 150,000,000 | Locked permanently (liquidity provider tokens locked) |
+| Liquidity (Base BETTER/ETH) | 15% | 150,000,000 | Locked permanently (liquidity provider tokens locked) |
 | Team | 20% | 200,000,000 | Zero per cent at the token generation event; six-month cliff then nine-month linear release |
 | Treasury | 25% | 250,000,000 | Unlocked at the token generation event |
 | OpenServ SERV token drop | 5% | 50,000,000 | Unlocked (claimed by SERV token stakers via tasks) |
@@ -179,69 +165,27 @@ Allocation:
 
 Initial circulating supply is defined as the public sale allocation plus the liquidity allocation: approximately 400,000,000 tokens (40 per cent).
 
-### Hold and stake semantics
+### Access gating (ratchet)
 
-- Hold `$BETTER` to view the Terminal.
-- Stake the same quantity to deposit into Vaults.
+Access thresholds decrease as fully diluted valuation rises, targeting a comparatively stable USD access cost while limiting congestion.
 
-Staked `$BETTER` remains locked until a user withdraws all funds from the vault.
+Hold `$BETTER` to view the Terminal; stake the same quantity to deposit into Vaults.
 
-### Fully diluted valuation gate phases
+See [Tokenomics](/token/tokenomics) for phase thresholds, worked examples, and Lite Mode behaviour.
 
-| Phase | Fully diluted valuation | Terminal (hold) | Vaults (stake) |
-| ---: | --- | ---: | ---: |
-| One | Below $10 million | 100,000 | 100,000 |
-| Two | $10 million–$20 million | 75,000 | 75,000 |
-| Three | $20 million–$40 million | 50,000 | 50,000 |
-| Four | $100 million or more | 10,000 | 10,000 |
+### Vault fees
 
-Examples:
+- **Performance fee:** twenty per cent on profits only.
+- **Timing:** charged on withdrawal.
+- **No fee on losses:** no fee if USD Coin withdrawn is below entry value (based on average entry per wallet).
 
-- At $0.005 ($5 million market capitalisation): approximately $500 (Phase one)
-- At $0.01 ($10 million market capitalisation): approximately $1,000 (Phase one)
-- At $0.02 ($20 million market capitalisation): approximately $1,500 (Phase two)
-- At $0.04 ($40 million market capitalisation): approximately $2,000 (Phase three)
-- At $0.10 ($100 million market capitalisation): approximately $1,000 (Phase four)
+### Lite Mode (Terminal)
 
-### Lite Mode thresholds
+Lite Mode is an optional execution path enabled at log-in:
 
-| Phase | Terminal (hold) | Terminal (hold) with Lite Mode |
-| ---: | ---: | ---: |
-| One | 100,000 | 50,000 |
-| Two | 75,000 | 37,500 |
-| Three | 50,000 | 25,000 |
-| Four | 10,000 | 5,000 |
-
----
-
-## Competitive moat
-
-BETTER’s moat is a combination of infrastructure, data, and operational focus.
-
-### Infrastructure-first execution
-
-- Rust-first high-frequency trading execution
-- In-region and co-located routing
-- Deterministic, constraint-driven execution decisions
-
-### Bounded reasoning
-
-Bounded reasoning aims to reduce failure modes that are common in unconstrained automated systems:
-
-- It enforces admissibility rules.
-- It produces auditable decision records.
-- It limits uncontrolled strategy drift.
-
-### Distribution and composability
-
-- Terminal-first distribution for active traders
-- Vaults for passive depositors
-- Receipt token design for composability
-
-### Partnerships
-
-- OpenServ for bounded agent infrastructure
-- DomeAPI for execution integration
+- halves the Terminal holding requirement
+- Vault staking requirements remain unchanged
+- charges two per cent of notional volume (in USD Coin terms) on trades executed via the Terminal in Lite Mode
 
 ---
 
@@ -273,47 +217,18 @@ Bounded reasoning aims to reduce failure modes that are common in unconstrained 
 
 ---
 
-## Team
-
-**Aryaman Chhaya** — Founder and quantitative developer
-
-- Quantitative researcher (buy-side hedge fund): built Bitcoin futures market-making in Rust, approximately $75,000 per week profit and loss on approximately $500,000 inventory.
-- Worked with senior traders on $1.2 million–$9 million Bitcoin calendar spread books.
-- Building sub-millisecond high-frequency trading systems on Solana (Rust and hardware-oriented low-latency design).
-
----
-
-## Fundraising
-
-BETTER is raising 500,000 via a simple agreement for future equity.
-
-Use of funds:
-
-| Use | Per cent |
-| --- | ---: |
-| Infrastructure, engineering, and compute | 50 |
-| Audits | 15 |
-| Legal and operations | 10 |
-| Growth and community | 15 |
-| Liquidity | 5 |
-| Marketing | 5 |
-
-Founders take no salary from this raise.
-
----
-
 ## Risks and disclaimers
 
 This document is not investment, legal, or tax advice.
 
 Key risks include:
 
-- Smart contract risk
-- Market risk
-- Liquidity risk
-- Execution and latency risk
-- Oracle and settlement risk
-- Cross-chain and integration risk
-- Regulatory risk
+- smart contract risk
+- market risk
+- liquidity risk
+- execution and latency risk
+- oracle and settlement risk
+- cross-chain and integration risk
+- regulatory risk
 
 Protocol mechanics, parameters, and timelines may change.
