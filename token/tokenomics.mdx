@@ -78,6 +78,30 @@ Lite Mode is an optional execution path enabled at log-in.
 | 3     | 50,000          | 25,000                         | 50,000         |
 | 4     | 10,000          | 5,000                          | 10,000         |
 
+## Value accrual and buybacks
+
+`$BETTER` is designed to accrue value through routine buybacks and burns funded by BETTER revenue.
+
+| Source | Mechanism | Buy and burn policy |
+| --- | --- | --- |
+| Vault fees | Twenty per cent performance fee on profits only, charged on withdrawal | Treasury-funded routine buybacks and burns |
+| Business-to-business ingestion product | Sale of prediction market data ingestion infrastructure to prop firms | Treasury-funded routine buybacks and burns |
+| OpenRouter API credits | API credits sold for BETTER's in-house open-source LLM trained exclusively on prediction market data | Treasury-funded routine buybacks and burns |
+| vBETTER arbitrage | Capture pricing gaps between `vBETTER` and underlying vault exposure | 30 per cent of net arbitrage profits are used to buy and burn `$BETTER` |
+| `$TRUTH-PERP` arbitrage | Capture pricing gaps between vault exposure and `$TRUTH-PERP` on Hyperliquid | 30 per cent of net arbitrage profits are used to buy and burn `$BETTER` |
+
+<Note>
+  Buyback and burn routing and cadence can evolve. The app and on-chain data remain the source of truth.
+</Note>
+
+## Trading taxes
+
+On buys and sells of `$BETTER`, a **two per cent (2%) buy tax** and **two per cent (2%) sell tax** apply. These taxes route to the protocol treasury and fund capital expenditure such as infrastructure and hosting.
+
+<Tip>
+  This tax is separate from the Terminal's Lite Mode fee (two per cent of notional volume traded).
+</Tip>
+
 ## Programmatic Funding
 
 Programmatic funding is operational and will be used to fund OpenRouter API credits for BETTER's in-house open-source LLM (trained exclusively on prediction market data), as well as infrastructure and physical hardware.
