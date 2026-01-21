@@ -42,31 +42,6 @@ body :where(*) {
   color: var(--better-white) !important;
 }
 
-/* Scanlines + soft grain */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.16;
-  background-image:
-    repeating-linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.05) 0px,
-      rgba(255, 255, 255, 0.02) 1px,
-      rgba(0, 0, 0, 0) 3px,
-      rgba(0, 0, 0, 0) 6px
-    );
-  mix-blend-mode: overlay;
-}
-
-@media (max-width: 768px) {
-  body::before {
-    opacity: 0.10;
-  }
-}
-
 /* Prose: prevent mobile overflow without breaking code blocks */
 .prose {
   overflow-wrap: anywhere;
@@ -82,9 +57,23 @@ aside,
 
 /* Navbar */
 #navbar {
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   background: rgba(0, 0, 0, 0.7);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Menus / dialogs: prevent iOS Safari white-out during open */
+dialog,
+[popover],
+[role="dialog"],
+[role="menu"] {
+  background: rgba(0, 0, 0, 0.92) !important;
+  color-scheme: dark;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6) !important;
 }
 
 /* Links */
